@@ -10,3 +10,6 @@ function multiply(a, b){
 function devide(a, b){
     return a/b;
 }
+let a;
+let b;
+let operator;
