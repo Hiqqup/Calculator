@@ -25,11 +25,18 @@ body{
     text-align: right;
     display: flex;
     flex-direction: column;
-    justify-content: flex-end;
+    justify-content: space-evenly;
 }
 .current{
     font-size: 36px;
     margin: 16px;
+    flex:1;
+}
+.previous{
+    flex: 1;
+    font-size: 24px;
+    margin: 16px;
+    color: gray;
 }
 .buttons{
     flex: 5;
@@ -42,6 +49,6 @@ body{
     width: 25%;
 }
 
-#butclear, #butdelete{
+#butCLEAR, #butDELETE{
     width: 50%;
 }
