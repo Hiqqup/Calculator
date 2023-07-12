@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+
 body{
     background-color: black;
     height: 100vh;
@@ -5,7 +7,7 @@ body{
     display: flex;
     justify-content: center;
     align-items: center;
-
+    font-family: Roboto, sans-serif;
 }
 .calc{
     display: flex;
@@ -20,6 +22,14 @@ body{
 .display{
     flex: 2;
     background-color: white;
+    text-align: right;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+}
+.current{
+    font-size: 36px;
+    margin: 16px;
 }
 .buttons{
     flex: 5;

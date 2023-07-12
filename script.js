@@ -39,6 +39,16 @@ function createButton(){
         button.classList.add(`button`);
         button.id = `but${arguments[i]}`;
         button.dataset.identifier = arguments[i];
+        button.addEventListener('click', updateDisplay)
         buttons.appendChild(button);
     }
+}
+let currentInput = '';
+const current = document.querySelector('.current');
+function updateDisplay(event){
+    const id =event.target.dataset.identifier;
+    if(!isNaN(parseInt(id))){
+        currentInput += id;
+    }
+    current.textContent = currentInput;
 }
