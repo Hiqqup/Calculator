@@ -1,27 +1,3 @@
-function add(a, b){
-    return(parseFloat(a) + parseFloat(b));
-}
-function subtract(a, b){
-    return(parseFloat(a) - parseFloat(b));
-}
-function multiply(a, b){
-    return(parseFloat(a) * parseFloat(b));
-}
-function devide(a, b){
-    return(parseFloat(a) / parseFloat(b));
-}
-let a;
-let b;
-let c;
-let operator;
-function operate(){
-    switch (operator){
-        case '+': c= add(a, b); break;
-        case '-': c= subtract(a, b); break;
-        case 'x': c= multiply(a, b); break;
-        case '÷': c= devide(a, b); break;
-    }
-}
 const buttons = document.querySelector('.buttons'); 
 generateNumPad();
 function generateNumPad(){
@@ -44,40 +20,75 @@ function createButton(){
         buttons.appendChild(button);
     }
 }
-let currentInput = '';
+let symbol;
+let isResult = false;
 const current = document.querySelector('.current');
+const previous = document.querySelector('.previous');
 function updateDisplay(event){
     const id =event.target.dataset.identifier;
     
-    if(!isNaN(parseInt(id)) || (id == '.')&& !(currentInput.split('.').length >1)){
-        currentInput += id;
-        current.textContent =currentInput;
+    if((!isNaN(parseInt(id)) ||
+     (id == '-' &&!current.textContent))||
+     (id == '.'&& (!(current.textContent.split('.').length >1 )))){
+        if(isResult){
+            current.textContent = id;
+            isResult =false;
+        }
+        else current.textContent += id;
+        console.log();
     }
     else{
         switch(id){
             case '÷': 
             case 'x': 
             case '-': 
-            case '+': manageMem(id);
+            case '+': 
+            if(!previous.textContent && current.textContent)putPrevious(current.textContent, id);
+            else if (!isNaN(parseFloat(current.textContent)))putPrevious(calculate(), id);
+            else if (current.textContent) putPrevious(previous.textContent.split(' ')[0], id);
+        
             break;
-            case 'CLEAR': break;
-            case 'DELETE': break;
+            case 'CLEAR':
+                current.textContent = previous.textContent ='';
+                isResult = false;
+            break;
+            case 'DELETE': 
+                if (!current.textContent) {
+                    current.textContent = previous.textContent.split(' ')[0];
+                    previous.textContent = '';
+                }
+                current.textContent = current.textContent.substring(0, current.textContent.length-1); 
+            break;
             case '=': 
-            b = currentInput;
-            operate();
-            console.log(`a: ${a}, b: ${b}, c: ${c}`);
-            current.textContent = c;
+            current.textContent = calculate();
             previous.textContent = '';
             break;
             
         }
     }
 }
-const previous = document.querySelector('.previous');
-function manageMem(symbol){
-    operator = symbol;
-    a = currentInput;
-    previous.textContent = currentInput + ' ' +symbol;
-    currentInput = '';
-    current.textContent = currentInput;
+function putPrevious(num, id){
+    previous.textContent = num +' '+ id;
+    current.textContent = '';
+    symbol = id;
+    isResult = false;
 }
+function calculate(){
+    let b = parseFloat(current.textContent);
+    let a = parseFloat(previous.textContent.split(' ')[0]);
+    let r ;
+    if(!isNaN(a) && !isNaN(b) && symbol){ 
+        switch(symbol){
+            case '÷': r=a /b; break;
+            case 'x': r=a *b; break;
+            case '-': r=a -b; break;
+            case '+': r=a +b; break;
+        }
+        isResult = true;
+        return r;
+    }
+
+    if (a) return a; 
+    else if (b) return b;
+}
+
