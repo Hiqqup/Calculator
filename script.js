@@ -21,3 +21,24 @@ function operate(){
         case '/': devide(a, b); break;
     }
 }
+const buttons = document.querySelector('.buttons'); 
+generateNumPad();
+function generateNumPad(){
+    createButton(
+    'clear','delete',
+    7,8,9,'÷'
+    ,4,5,6,'x'
+    ,1,2,3,'-'
+    ,'.','0','=','+');
+   
+}
+function createButton(){
+    for(let i = 0; i< arguments.length; i++){
+        const button = document.createElement('button');
+        button.textContent = arguments[i];
+        button.classList.add(`button`);
+        button.id = `but${arguments[i]}`;
+        button.dataset.identifier = arguments[i];
+        buttons.appendChild(button);
+    }
+}
