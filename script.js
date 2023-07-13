@@ -20,13 +20,28 @@ function createButton(){
         buttons.appendChild(button);
     }
 }
+window.addEventListener('keydown', updateDisplay);
 let symbol;
 let isResult = false;
 const current = document.querySelector('.current');
 const previous = document.querySelector('.previous');
 function updateDisplay(event){
-    const id =event.target.dataset.identifier;
+
     
+    // check event type
+    let id;
+    if(event.type === 'click'){
+        id =event.target.dataset.identifier
+    }
+    else if(event.type === 'keydown'){
+        id = event.key;
+        switch (id){
+            case '/': id = '÷';break;
+            case '*': id = 'x';break;
+        }
+    }
+    
+    //check for numbers minus or dot
     if((!isNaN(parseInt(id)) ||
      (id == '-' &&!current.textContent))||
      (id == '.'&& (!(current.textContent.split('.').length >1 )))){
@@ -35,17 +50,21 @@ function updateDisplay(event){
             isResult =false;
         }
         else current.textContent += id;
-        console.log();
     }
     else{
+        //act according to the symbols
         switch(id){
             case '÷': 
             case 'x': 
             case '-': 
             case '+': 
-            if(!previous.textContent && current.textContent)putPrevious(current.textContent, id);
+            // there is no previous  and ther is current
+            if(!previous.textContent && current.textContent&& current.textContent != '-')putPrevious(current.textContent, id);
+            //        //current is a number                        
             else if (!isNaN(parseFloat(current.textContent)))putPrevious(calculate(), id);
-            else if (current.textContent) putPrevious(previous.textContent.split(' ')[0], id);
+                     //there is current text
+            else if (previous.textContent) putPrevious(previous.textContent.split(' ')[0], id);
+            // else if (!current.textContent)putPrevious(previous.textContent.split(' ')[0], id)
         
             break;
             case 'CLEAR':
