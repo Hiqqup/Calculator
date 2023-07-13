@@ -37,6 +37,12 @@ body{
     font-size: 36px;
     margin: 16px;
     flex:1;
+
+    word-wrap: break-word;
+}
+.currentHalf{
+    font-size: 18px;
+
 }
 .previous{
     flex: 1;

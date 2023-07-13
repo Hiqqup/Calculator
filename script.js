@@ -58,6 +58,10 @@ function updateDisplay(event){
             isResult =false;
         }
         else current.textContent += id;
+        console.log(current.textContent.length)
+        if(current.textContent.length > 18) current.classList.add('currentHalf');
+        else current.classList.remove('currentHalf');
+        
     }
     else{
         //act according to the symbols
