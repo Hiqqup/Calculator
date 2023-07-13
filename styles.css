@@ -17,11 +17,41 @@ body{
     flex-shrink: 1;
     padding: 16px;
     border-radius: 16px;
+    align-items: center;
     
 
     background-color: gray;
 }
+.info{
+    cursor: pointer;
+    color: white;
+    position: relative;
+}
+.info::before{
+    transition: 150ms transform;
+    --scale: 0;
+    position: absolute;
+
+    margin-top: 36px;
+    width: max-content;
+    max-width: 230px;
+
+    left: 50%;
+    transform: translateX(-50%) scale(var(--scale));
+    text-align: center;
+    content:attr(data-tooltip);
+    color: white;
+    background-color: grey;
+    word-wrap: break-word;
+    padding: 16px;
+    border-radius: 8px;
+}
+.info:hover::before{
+    --scale: 1;
+}
+
 .display{
+    width: 100%;
     border-radius: 8px;
     flex: 2;
     margin: 1.5% 0.5%;
@@ -45,6 +75,8 @@ body{
 
 }
 .previous{
+    
+    word-wrap: break-word;
     flex: 1;
     font-size: 24px;
     margin: 16px;

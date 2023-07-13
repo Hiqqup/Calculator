@@ -19,7 +19,7 @@ function createButton(){
         else if(arguments[i] == '.')button.id = 'butdot';
         else if(arguments[i] == '=')button.id = 'buteq';
         button.dataset.identifier = arguments[i];
-        button.addEventListener('click', updateDisplay);
+        button.addEventListener('mousedown', updateDisplay);
         button.addEventListener('mouseenter', toggleHover);
         button.addEventListener('mouseleave', toggleHover);
         buttons.appendChild(button);
@@ -28,6 +28,15 @@ function createButton(){
 function toggleHover(e){
     e.target.classList.toggle('hover');
 }
+function restoreLast(){
+    const obj = history.pop(); 
+    if (obj){
+        current.textContent = obj.current;
+        previous.textContent = obj.previous;
+    }
+}
+let history = [];
+
 window.addEventListener('keydown', updateDisplay);
 let symbol;
 let isResult = false;
@@ -38,16 +47,24 @@ function updateDisplay(event){
     
     // check event type
     let id;
-    if(event.type === 'click'){
-        id =event.target.dataset.identifier
+    if(event.type === 'mousedown'){
+        id =event.target.dataset.identifier;
     }
     else if(event.type === 'keydown'){
+        id = '';
         id = event.key;
         switch (id){
             case '/': id = '÷';break;
+            case ':': id = '÷'; break;
             case '*': id = 'x';break;
+            case 'Backspace': id = 'DELETE';break;
+            case 'Enter': id = '=' ;break;
+            case ' ': id = 'CLEAR';break;
+            case 'ArrowUp' : restoreLast();
         }
     }
+    
+    console.log(id);
     
     //check for numbers minus or dot
     if((!isNaN(parseInt(id)) ||
@@ -58,7 +75,6 @@ function updateDisplay(event){
             isResult =false;
         }
         else current.textContent += id;
-        console.log(current.textContent.length)
         if(current.textContent.length > 18) current.classList.add('currentHalf');
         else current.classList.remove('currentHalf');
         
@@ -80,6 +96,10 @@ function updateDisplay(event){
         
             break;
             case 'CLEAR':
+                history.push({
+                    current:[current.textContent] ,
+                    previous:[previous.textContent]
+                });
                 current.textContent = previous.textContent ='';
                 isResult = false;
             break;
@@ -99,6 +119,10 @@ function updateDisplay(event){
     }
 }
 function putPrevious(num, id){
+    history.push({
+        current:[current.textContent] ,
+        previous:[previous.textContent]
+    });
     previous.textContent = num +' '+ id;
     current.textContent = '';
     symbol = id;
