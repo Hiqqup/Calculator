@@ -16,9 +16,14 @@ function createButton(){
         button.classList.add(`button`);
         button.id = `but${arguments[i]}`;
         button.dataset.identifier = arguments[i];
-        button.addEventListener('click', updateDisplay)
+        button.addEventListener('click', updateDisplay);
+        button.addEventListener('mouseenter', toggleHover);
+        button.addEventListener('mouseleave', toggleHover);
         buttons.appendChild(button);
     }
+}
+function toggleHover(e){
+    e.target.classList.toggle('hover');
 }
 window.addEventListener('keydown', updateDisplay);
 let symbol;
