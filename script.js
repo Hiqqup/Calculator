@@ -15,6 +15,9 @@ function createButton(){
         button.textContent = arguments[i];
         button.classList.add(`button`);
         button.id = `but${arguments[i]}`;
+        if(arguments[i] == '+')button.id = 'butplus';
+        else if(arguments[i] == '.')button.id = 'butdot';
+        else if(arguments[i] == '=')button.id = 'buteq';
         button.dataset.identifier = arguments[i];
         button.addEventListener('click', updateDisplay);
         button.addEventListener('mouseenter', toggleHover);

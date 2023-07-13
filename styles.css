@@ -54,18 +54,35 @@ body{
 }
 .button{
     
-    background-color: lightblue;
     width: 24%;
     margin: 1.5% 0.5%;
     border-radius: 8px;
     transition: all .1s ease;
 }
 .hover{
-    transform: scale(1.1);
-    background-color: rgb(99, 183, 210);
-}
+    transform: scale(1.06);
+    background-color: rgba(255, 255, 255, 0.681);
 
+}
+#but- , #but÷, #butx, #butplus, #butdot,#buteq{
+
+    background-color: lightblue;
+}
+#but-.hover,#but÷.hover, #butx.hover, #butplus.hover, #butdot.hover,#buteq.hover {
+    background-color: rgba(173, 216, 230, 0.645);
+}
 #butCLEAR, #butDELETE{
     width: 49%;
 }
-
+#butCLEAR{
+    background-color: #FFAAAA; 
+}
+#butCLEAR.hover{
+    background-color: #ffaaaaab; 
+}
+#butDELETE{
+    background-color: #AAAAFF;
+}
+#butDELETE.hover{
+    background-color: #aaaaffb0; 
+}
